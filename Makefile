@@ -1,4 +1,4 @@
-DEFAULT_FLAGS = -Werror -Weverything -std=c17 -pedantic -iquote src/ -Ofast
+DEFAULT_FLAGS = -Werror -Weverything -Wno-padded -std=c17 -pedantic -iquote src/ -Ofast
 CFILES = $(wildcard src/*.c)
 VPATH = src
 
