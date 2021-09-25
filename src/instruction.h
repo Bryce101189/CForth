@@ -122,7 +122,7 @@ static const InstructionStringPair pairs[] = {
     { "<", InsLess },
     { ">", InsGreater },
 
-    { "define", InsDefine },
+    { ":", InsDefine },
     { ";", InsEndDef },
 };
 

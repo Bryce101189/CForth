@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 
+#include "interpreter.h"
 #include "instruction.h"
 #include "lexer.h"
 
@@ -27,6 +28,7 @@ static int run_repl(void) {
     }
 
     Lexer lexer = { .buffer = lex_buffer, .buffer_len = DEFAULT_BUFFER_LEN };
+    Interpreter interpreter = { .stack = NULL };
 
     // Start REPL
     while(true) {
@@ -75,6 +77,22 @@ static int run_repl(void) {
             break;
         }
 
+        // Interpret instructions
+        interpreter.instructions = instructions;
+
+        while(!reached_end(&interpreter)) {
+            if(!run_instruction(&interpreter)) {
+                return_val = EXIT_FAILURE;
+                break;
+            }
+        }
+
+        if(interpreter.has_printed) {
+            printf("\n");
+        }
+
+        debug_print_stack(&interpreter);
+
         // Free previously allocated memory
         if(instructions != NULL) {
             for(size_t i = 0; i < n_instructions; ++i) {
@@ -85,6 +103,10 @@ static int run_repl(void) {
 
             free(instructions);
         }
+    }
+
+    if(interpreter.stack != NULL) {
+        free(interpreter.stack);
     }
 
     free(lex_buffer);
