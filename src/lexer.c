@@ -107,8 +107,12 @@ Instruction collect_instruction(Lexer* lexer) {
         strcpy(str_val, lexer->buffer);
 
         return (Instruction) { .type = InsPrintStr, .str_val = str_val };
-    } else if(is_number(lexer->buffer)) {
-        return (Instruction) { .type = InsPush, .num_val = atoi(lexer->buffer) };
+    } else if(is_number(lexer->buffer) || (lexer->buffer[0] == '-' && is_number(lexer->buffer + 1))) {
+        if(lexer->buffer[0] == '-') {
+            return (Instruction) { .type = InsPush, .num_val = -atoi(lexer->buffer + 1) };
+        } else {
+            return (Instruction) { .type = InsPush, .num_val = atoi(lexer->buffer) };
+        }
     } else {
         for(size_t i = 0; i < PAIR_AMOUNT; ++i) {
             if(strcmp(lexer->buffer, pairs[i].string) == 0) {
