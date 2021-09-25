@@ -62,24 +62,15 @@ static int run_repl(void) {
             ins = collect_instruction(&lexer);
             instructions[n_instructions - 1] = ins;
 
-            if(ins.type == CtlEof || ins.type == CtlError) {
+            if(ins.type == CtlEof) {
                 break;
+            } else if(ins.type == CtlError) {
+                return_val = EXIT_FAILURE;
             }
         }
 
-        // Free and exit on error
-        if(ins.type == CtlError || instructions == NULL) {
-            // Free previously allocated memory
-            if(instructions != NULL) {
-                for(size_t i = 0; i < n_instructions; ++i) {
-                    if(instructions[i].type == InsPrintStr && instructions[i].str_val != NULL) {
-                        free(instructions[i].str_val);
-                    }
-                }
-
-                free(instructions);
-            }
-
+        // Exit on failure to reallocate instructions array
+        if(instructions == NULL) {
             return_val = EXIT_FAILURE;
             break;
         }
