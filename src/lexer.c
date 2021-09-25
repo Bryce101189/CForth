@@ -28,6 +28,10 @@ static void skip_whitespace(Lexer* lexer) {
 static bool is_number(char* buffer) {
     size_t len = strlen(buffer);
 
+    if(len == 0) {
+        return false;
+    }
+
     for(size_t i = 0; i < len; ++i) {
         if(!isdigit(buffer[i])) {
             return false;
