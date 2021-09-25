@@ -56,6 +56,7 @@ typedef enum {
     // Definitions
     InsDefine,
     InsEndDef,
+    InsIdentifier,
 
     // Control instructions
     CtlEof,

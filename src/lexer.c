@@ -116,7 +116,6 @@ Instruction collect_instruction(Lexer* lexer) {
             }
         }
 
-        fprintf(stderr, "ERROR: Unrecognized word '%s'\n", lexer->buffer);
-        return (Instruction) { .type = CtlError };
+        return (Instruction) { .type = InsIdentifier, .str_val = lexer->buffer };
     }
 }
