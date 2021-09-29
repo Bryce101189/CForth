@@ -10,13 +10,9 @@ Binaries can be built easily using the GNU Make utility, like so...
 
 The resulting binary can then be found in `./bin/`
 
-Alternatively, if a better debugging experience is desired you could instead run...
+This binary can then be installed on your system by running `$ make install`
 
-`$ make debug`
-
-This will cause the program to be compiled with minimal optimizations and with debug symbols
-
-*Build and tested in Lubuntu 21.04*
+*[Built and tested in Lubuntu 21.04]*
 
 ### License
 
